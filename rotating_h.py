@@ -13,14 +13,15 @@ point_array = [
 
 
 ]
-
+CLEAR_SCREEN_RATE = float(input("Enter clear screen rate (seconds, e.g., 0.1 is a good value): "))
+ROTATION_RATE = float(input("Enter rotation rate (1 is moderately fast): "))
 start_time = time.time()
 def clear():
     try:
-        time.sleep(0.05)
+        time.sleep(CLEAR_SCREEN_RATE)
     except KeyboardInterrupt:
         exit(1)
-    print("\033[2J\033[H", end="")
+    print("\033[H", end="")
 
 
 def print_points(points):
@@ -35,6 +36,7 @@ def print_points(points):
 
 def transform_points(points):
     current_time = time.time() - start_time
+    current_time *= ROTATION_RATE
     new_points = []
     for i in range(len(points)):
         x, y = points[i]
